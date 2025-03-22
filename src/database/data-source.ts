@@ -12,7 +12,6 @@ export const dataSourceOptions: DataSourceOptions = {
   timezone: '+05:30',
   synchronize: process.env.DATABASE_SYNCHRONIZE==='true',
   entities: ['dist/database/entities/*{.ts,.js}'],
-  // migrations: ['dist/database/migrations/*{.ts,.js}'],
 };
 
 const dataSource = new DataSource(dataSourceOptions);

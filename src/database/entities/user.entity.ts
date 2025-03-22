@@ -1,8 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
-
-@Entity('users')  // Table name: users
+@Entity('users')
 export class User {
-  @PrimaryGeneratedColumn('uuid') // Generates UUID automatically
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ type: 'varchar', length: 100 })
@@ -17,6 +16,6 @@ export class User {
   @Column({ type: 'varchar', unique: true })
   email: string;
 
-  @CreateDateColumn({ type: 'timestamp with time zone' }) // Auto-sets on insert
-  inserted_at: Date;
+  @CreateDateColumn({ name:'inserted_at',type: 'timestamp with time zone' }) // Auto-sets on insert
+  insertedAt: Date;
 }
