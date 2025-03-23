@@ -14,8 +14,7 @@ This project is **Dockerized** for easy setup and deployment.
 
 ### **1️⃣ Clone the Repository**
 ```sh
-git clone <your-repo-url>
-cd pub-sub-system
+git clone git@github.com:Abhishek-Sharma-1999/Pub-Sub-using-Redis.git
 ```
 
 ### **2️⃣ Configure Environment Variables**
