@@ -1,73 +1,106 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Pub/Sub System with Redis and PostgreSQL
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This is a **Pub/Sub system** built using **NestJS, Redis, and PostgreSQL**. The system consists of:
+- A **receiver service** that handles API requests and publishes events.
+- A **listener service** that listens to events and inserts data into a second table.
+- A **Redis instance** for message passing.
+- A **PostgreSQL database** for persistence.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This project is **Dockerized** for easy setup and deployment.
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🚀 Getting Started
 
-## Installation
-
-```bash
-$ npm install
+### **1️⃣ Clone the Repository**
+```sh
+git clone <your-repo-url>
+cd pub-sub-system
 ```
 
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+### **2️⃣ Configure Environment Variables**
+Create a `.env` file in the project root (or copy from `.env.example`):
+```sh
+cp .env.example .env
+```
+Update the `.env` file with your values:
+```
+DATABASE_TYPE=postgres
+DATABASE_SERVER=postgres
+DATABASE_PORT=5432
+DATABASE_NAME=pubsub_db
+DATABASE_USER=your_db_user
+DATABASE_PASS=your_db_password
+DATABASE_SYNCHRONIZE=true
 ```
 
-## Test
+---
 
-```bash
-# unit tests
-$ npm run test
+## 🐳 Running the Project with Docker
 
-# e2e tests
-$ npm run test:e2e
+### **3️⃣ Build and Start Containers**
+Run the following command:
+```sh
+docker-compose up --build
+```
+This will:
+- Set up **Redis** and **PostgreSQL** inside Docker.
+- Build and start the **receiver** and **listener services**.
 
-# test coverage
-$ npm run test:cov
+### **4️⃣ Accessing Services**
+- The POST API will be available at **`http://localhost:3000/receiver`**
+- PostgreSQL database will be running inside the container.
+- Redis will be available inside the container.
+
+### **5️⃣ Stopping the Containers**
+To stop running containers:
+```sh
+docker-compose down
 ```
 
-## Support
+---
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 🛠 Development (Without Docker)
 
-## Stay in touch
+### **1️⃣ Install Dependencies**
+```sh
+npm install
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### **2️⃣ Run the PostgreSQL & Redis Locally**
+Ensure you have **PostgreSQL** and **Redis** installed locally and update `.env` accordingly.
 
-## License
+### **3️⃣ Start the Application**
+```sh
+npm run start:dev
+```
 
-Nest is [MIT licensed](LICENSE).
+---
+
+## 🏗 Project Structure
+```
+/src
+├── database/             # Database module
+│   ├── entities/         # Entity definitions (tables)
+│   ├── repositories/     # Database repositories
+│   ├── data-source.ts    # Database connection setup
+│   ├── database.module.ts
+│
+├── receiver/             # Receiver service (API handling, event publishing)
+│   ├── dto/              # DTOs for request validation
+│   ├── receiver.controller.ts
+│   ├── receiver.module.ts
+│   ├── receiver.service.ts
+│
+├── listener/             # Listener service (event consumption, database insertion)
+│   ├── listener.module.ts
+│   ├── listener.service.ts
+│
+├── redis/                # Redis setup and service
+│
+├── main.ts               # Application entry point
+└── app.module.ts         # Root module
+```
+
+---
+
