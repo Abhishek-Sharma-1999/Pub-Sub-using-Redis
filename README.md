@@ -14,15 +14,12 @@ This project is **Dockerized** for easy setup and deployment.
 
 ### **1️⃣ Clone the Repository**
 ```sh
-git clone <your-repo-url>
-cd pub-sub-system
+git clone git@github.com:Abhishek-Sharma-1999/Pub-Sub-using-Redis.git
 ```
 
 ### **2️⃣ Configure Environment Variables**
-Create a `.env` file in the project root (or copy from `.env.example`):
-```sh
-cp .env.example .env
-```
+Create a `.env` file in the project root :
+
 Update the `.env` file with your values:
 ```
 DATABASE_TYPE=postgres
@@ -103,4 +100,6 @@ npm run start:dev
 ```
 
 ---
+## Video of the Implementation in the local set-up
 
+https://drive.google.com/file/d/1Fl6GivdYdSMC3F_xvJIxWkWDIpsyck9F/view?usp=sharing
