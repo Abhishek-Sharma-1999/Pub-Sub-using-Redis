@@ -103,3 +103,7 @@ npm run start:dev
 ## Video of the Implementation in the local set-up
 
 https://drive.google.com/file/d/1Fl6GivdYdSMC3F_xvJIxWkWDIpsyck9F/view?usp=sharing
+
+
+# sh: Nest not found(Docker issue)
+https://drive.google.com/file/d/1PzkbRBbSOe4up865d8_nGSIwu2l5KHNC/view?usp=drive_link
