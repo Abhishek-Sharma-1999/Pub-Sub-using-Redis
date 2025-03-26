@@ -6,6 +6,9 @@ COPY package*.json ./
 
 RUN npm install
 
+# Install Nest CLI globally (if needed)
+RUN npm install -g @nestjs/cli
+
 COPY . .
 
 EXPOSE 3000

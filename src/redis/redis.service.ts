@@ -7,8 +7,14 @@ export class RedisService {
     private readonly subClient:Redis;
 
     constructor(){
-        this.pubClient=new Redis();
-        this.subClient=new Redis();
+        this.pubClient=new Redis({
+            host:process.env.REDIS_HOST,
+            port:parseInt(process.env.REDIS_PORT)
+        });
+        this.subClient=new Redis({
+            host:process.env.REDIS_HOST,
+            port:parseInt(process.env.REDIS_PORT)
+        });
     }
 
     async publish(channel:string,message:string){
